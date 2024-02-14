@@ -1,32 +1,5 @@
-import {login, signup} from '@/actions/login'
-import {createServer} from '@/utils/server'
-import {cookies} from 'next/headers'
-
-const getURL = () => {
-  let url =
-    process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-    process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
-    'http://localhost:3000/'
-  // Make sure to include `https://` when not localhost.
-  url = url.includes('http') ? url : `https://${url}`
-  // Make sure to include a trailing `/`.
-  url = url.charAt(url.length - 1) === '/' ? url : `${url}/`
-  return url
-}
-
-export async function signInWithGithub() {
-  'use server'
-  const supabase = createServer()
-
-  const {data, error} = await supabase.auth.signInWithOAuth({
-    provider: 'github',
-    options: {
-      redirectTo: `http://localhost:3000/auth/callback`,
-    },
-  })
-
-  console.log('data Github', data)
-}
+import {login, signInWithGithub, signup} from '@/actions/login'
+import {LoginWithGitHub} from '@/components/LoginWithGitHub'
 
 export default function LoginPage() {
   return (
@@ -63,14 +36,7 @@ export default function LoginPage() {
           </div>
         </form>
         <div>
-          <form action={signInWithGithub}>
-            <button
-              className="p-3 bg-blue-500 hover:bg-secondary rounded-md text-white font-bold w-full"
-              type="submit"
-            >
-              Sign In with Github
-            </button>
-          </form>
+          <LoginWithGitHub />
         </div>
       </div>
     </div>

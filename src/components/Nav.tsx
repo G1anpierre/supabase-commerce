@@ -3,21 +3,6 @@ import React from 'react'
 import {createServer} from '@/utils/server'
 import Link from 'next/link'
 
-export async function signInWithGithub() {
-  'use server'
-
-  const supabase = createServer()
-
-  const {data, error} = await supabase.auth.signInWithOAuth({
-    provider: 'github',
-    options: {
-      redirectTo: `http://localhost:3000/auth/callback`,
-    },
-  })
-
-  console.log('data Github', data)
-}
-
 export async function signOut() {
   'use server'
   const supabase = createServer()
@@ -29,8 +14,6 @@ export async function signOut() {
 export const Nav = async () => {
   const supabase = createServer()
   const {data, error} = await supabase.auth.getUser()
-
-  console.log('data', data)
 
   return (
     <div className="p-4 flex justify-between">
