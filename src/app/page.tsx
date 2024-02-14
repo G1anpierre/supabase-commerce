@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 export default async function Home() {
   const cookieStore = cookies()
-  const supabase = await createClient(cookieStore)
+  const supabase = createClient(cookieStore)
   const {data} = await supabase.from('lesson').select('*')
 
   return (

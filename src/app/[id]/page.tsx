@@ -6,7 +6,7 @@ import {createClient} from '@/utils/server'
 const SingleProduct = async ({params}: {params: {id: string}}) => {
   const cookieStore = cookies()
 
-  const supabase = await createClient(cookieStore)
+  const supabase = createClient(cookieStore)
   const {data} = await supabase
     .from('lesson')
     .select('*')
