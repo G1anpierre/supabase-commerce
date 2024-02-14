@@ -1,6 +1,6 @@
 import {login, signup} from '@/actions/login'
+import {createServer} from '@/utils/server'
 import {cookies} from 'next/headers'
-import {createClient} from '@/utils/server'
 
 const getURL = () => {
   let url =
@@ -16,8 +16,7 @@ const getURL = () => {
 
 export async function signInWithGithub() {
   'use server'
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const supabase = createServer()
 
   const {data, error} = await supabase.auth.signInWithOAuth({
     provider: 'github',

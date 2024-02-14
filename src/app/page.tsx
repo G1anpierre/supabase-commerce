@@ -1,11 +1,10 @@
 import Image from 'next/image'
 import {cookies} from 'next/headers'
-import {createClient} from '@/utils/server'
+import {createServer} from '@/utils/server'
 import Link from 'next/link'
 
 export default async function Home() {
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
+  const supabase = createServer()
   const {data} = await supabase.from('lesson').select('*')
 
   return (

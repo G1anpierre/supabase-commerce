@@ -1,12 +1,9 @@
 import React from 'react'
-import {cookies} from 'next/headers'
-import {createClient} from '@/utils/server'
+import {createServer} from '@/utils/server'
 // import {supabase} from '../../utils/supabase'
 
 const SingleProduct = async ({params}: {params: {id: string}}) => {
-  const cookieStore = cookies()
-
-  const supabase = createClient(cookieStore)
+  const supabase = createServer()
   const {data} = await supabase
     .from('lesson')
     .select('*')
